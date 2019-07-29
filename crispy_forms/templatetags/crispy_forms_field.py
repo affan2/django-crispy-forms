@@ -195,4 +195,13 @@ def crispy_addon(field, append="", prepend="", form_show_labels=True):
 
         context = context.flatten()
 
-    return template.render(context)
+    # The return statement was wrapped in try block because it was not clear what the original programmer's intentions
+    # or assumptions were for this piece of code.
+    # Either field is always true, then the if-condition is not needed, or there is an alternative return, but what
+    # that alternative is anyone's guess.
+    # So exception handling was inserted here to deal with this. At least in the future we may know why and what
+    # happened, when this piece of code fails.
+    try:
+        return template.render(context)
+    except UnboundLocalError:
+        print('The variable named context was not defined because field was not true.')
