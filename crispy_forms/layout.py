@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+
 
 from django.template import Template
 from django.template.loader import render_to_string
@@ -316,7 +316,7 @@ class MultiField(LayoutObject):
     def render(self, form, form_style, context, template_pack=TEMPLATE_PACK, **kwargs):
         # If a field within MultiField contains errors
         if context['form_show_errors']:
-            for field in map(lambda pointer: pointer[1], self.get_field_names()):
+            for field in [pointer[1] for pointer in self.get_field_names()]:
                 if field in form.errors:
                     self.css_class += " error"
 

@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+
 
 from random import randint
 
@@ -212,7 +212,7 @@ class Container(Div):
         """
         check if field_name is contained within tab.
         """
-        return field_name in map(lambda pointer: pointer[1], self.get_field_names())
+        return field_name in [pointer[1] for pointer in self.get_field_names()]
 
     def render(self, form, form_style, context, template_pack=TEMPLATE_PACK, **kwargs):
         if self.active:
@@ -244,7 +244,7 @@ class ContainerHolder(Div):
         in the container, unless that first group was originally set to
         active=False.
         """
-        target = self.first_container_with_errors(form.errors.keys())
+        target = self.first_container_with_errors(list(form.errors.keys()))
         if target is None:
             target = self.fields[0]
             if not getattr(target, '_active_originally_included', None):

@@ -1,8 +1,3 @@
-try:
-    from itertools import izip
-except ImportError:
-    izip = zip
-
 from django import forms, template
 from django.conf import settings
 from django.template import Context, loader
@@ -66,7 +61,7 @@ def css_class(field):
 def pairwise(iterable):
     """s -> (s0,s1), (s2,s3), (s4, s5), ..."""
     a = iter(iterable)
-    return izip(a, a)
+    return zip(a, a)
 
 
 class CrispyFieldNode(template.Node):
@@ -145,7 +140,7 @@ class CrispyFieldNode(template.Node):
                 if field.field.widget.__class__.__name__ is not 'RadioSelect':
                     widget.attrs['required'] = 'required'
 
-            for attribute_name, attribute in attr.items():
+            for attribute_name, attribute in list(attr.items()):
                 attribute_name = template.Variable(attribute_name).resolve(context)
 
                 if attribute_name in widget.attrs:

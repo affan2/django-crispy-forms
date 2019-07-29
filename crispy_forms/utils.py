@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+
 
 import logging
 import sys
@@ -11,7 +11,7 @@ from django.utils.functional import SimpleLazyObject
 from django.utils.lru_cache import lru_cache
 
 from .base import KeepContext
-from .compatibility import PY2, text_type
+from .compatibility import text_type
 
 
 def get_template_pack():
@@ -50,7 +50,7 @@ def render_field(
     :template_pack: Name of the template pack to be used for rendering `field`
     :extra_context: Dictionary to be added to context, added variables by the layout object
     """
-    added_keys = [] if extra_context is None else extra_context.keys()
+    added_keys = [] if extra_context is None else list(extra_context.keys())
     with KeepContext(context, added_keys):
         if field is None:
             return ''
@@ -61,20 +61,6 @@ def render_field(
             return field.render(
                 form, form_style, context, template_pack=template_pack,
             )
-        else:
-            # In Python 2 form field names cannot contain unicode characters without ASCII mapping
-            if PY2:
-                # This allows fields to be unicode strings, always they don't use non ASCII
-                try:
-                    if isinstance(field, text_type):
-                        field = field.encode('ascii').decode()
-                    # If `field` is not unicode then we turn it into a unicode string, otherwise doing
-                    # str(field) would give no error and the field would not be resolved, causing confusion
-                    else:
-                        field = text_type(field)
-
-                except (UnicodeEncodeError, UnicodeDecodeError):
-                    raise Exception("Field '%s' is using forbidden unicode characters" % field)
 
         try:
             # Injecting HTML attributes into field's widget, Django handles rendering these
@@ -157,7 +143,7 @@ def flatatt(attrs):
     Passed attributes are redirected to `django.forms.utils.flatatt()`
     with replaced "_" (underscores) by "-" (dashes) in their names.
     """
-    return _flatatt({k.replace('_', '-'): v for k, v in attrs.items()})
+    return _flatatt({k.replace('_', '-'): v for k, v in list(attrs.items())})
 
 
 def render_crispy_form(form, helper=None, context=None):

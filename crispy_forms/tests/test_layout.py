@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 
 import pytest
 
@@ -11,7 +11,6 @@ from django.template import Context, Template
 from django.utils.translation import ugettext_lazy as _
 
 from crispy_forms.bootstrap import Field, InlineCheckboxes
-from crispy_forms.compatibility import PY2
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     HTML, ButtonHolder, Column, Div, Fieldset, Layout, MultiField, Row, Submit,
@@ -32,11 +31,7 @@ try:
 except ImportError:
     from django.middleware.csrf import _get_new_csrf_string as _get_new_csrf_key
 
-try:
-    from django.urls import reverse
-except ImportError:
-    # Django < 1.10
-    from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 def test_invalid_unicode_characters(settings):
@@ -67,12 +62,8 @@ def test_unicode_form_field():
         helper = FormHelper()
         helper.layout = Layout('contraseña')
 
-    if PY2:
-        with pytest.raises(Exception):
-            render_crispy_form(UnicodeForm())
-    else:
-        html = render_crispy_form(UnicodeForm())
-        assert 'id="id_contraseña"' in html
+    html = render_crispy_form(str)
+    assert 'id="id_contraseña"' in html
 
 
 def test_meta_extra_fields_with_missing_fields():

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 
 import pytest
 
@@ -23,6 +23,7 @@ def test_list_difference():
 def test_render_field_with_none_field():
     rendered = render_field(field=None, form=None, form_style=None, context=None)
     assert rendered == ''
+
 
 @pytest.mark.skipif(django.VERSION < (1, 9),
                     reason="Custom BoundField behavior is was introduced in 1.9.")

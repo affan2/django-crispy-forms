@@ -174,7 +174,7 @@ class BasicNode(template.Node):
         }
 
         # Handles custom attributes added to helpers
-        for attribute_name, value in attrs.items():
+        for attribute_name, value in list(attrs.items()):
             if attribute_name not in response_dict:
                 response_dict[attribute_name] = value
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 
 import re
 
@@ -34,11 +34,7 @@ try:
 except ImportError:
     from django.middleware.csrf import _get_new_csrf_string as _get_new_csrf_key
 
-try:
-    from django.urls import reverse
-except ImportError:
-    # Django < 1.10
-    from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 def test_inputs(settings):

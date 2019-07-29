@@ -108,7 +108,7 @@ class LayoutSlice(object):
             )
 
             # The rest of places of the slice are removed, as they are included in the previous
-            for i in reversed(range(*self.slice.indices(len(self.layout.fields)))):
+            for i in reversed(list(range(*self.slice.indices(len(self.layout.fields))))):
                 if i != start:
                     del self.layout.fields[i]
 
