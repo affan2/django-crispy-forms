@@ -1,2 +1,6 @@
--i http://simple.crate.io/
-django
+coverage
+twine
+wheel
+pytest
+pytest-cov
+pytest-django

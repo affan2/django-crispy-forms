@@ -1,4 +1,4 @@
-{{ form.media }}
+{% if include_media %}{{ form.media }}{% endif %}
 {% if form_show_errors %}
     {% include "uni_form/errors.html" %}
 {% endif %}
@@ -9,7 +9,7 @@
 {% endif %}
 
 {% for field in form %}
-    {% include "uni_form/field.html" %}
+    {% include field_template|default:"uni_form/field.html" %}
 {% endfor %}
 
 {% if form_style == "" or form_style %}

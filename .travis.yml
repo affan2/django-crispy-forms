@@ -1,23 +1,26 @@
+sudo: false
+
+
+dist: xenial
 language: python
 python:
-  - "2.6"
   - "2.7"
-  - "3.3"
-env:
-  - DJANGO=1.3.7
-  - DJANGO=1.4.5
-  - DJANGO=1.5.1
+  - "3.5"
+  - "3.6"
+  - "3.7"
+  - "3.8-dev"
+
+cache: pip
+
 install:
-  - pip install Django==$DJANGO
-  - pip install "file://`pwd`#egg=django-crispy-forms[tests]"
-  - pip install -e . --use-mirrors
+  - pip install coverage tox-travis tox-venv
+
 script:
-  - make test
-notifications:
-  email: false
-matrix:
-  exclude:
-    - python: "3.3"
-      env: DJANGO=1.4.5
-    - python: "3.3"
-      env: DJANGO=1.3.7
+  - coverage erase
+  - tox
+
+after_success:
+  - coverage combine --append
+  - coverage report -m
+  - pip install codecov
+  - codecov

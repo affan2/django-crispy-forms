@@ -30,7 +30,7 @@ Add ``crispy_forms`` to your ``INSTALLED_APPS`` in settings.py::
 
 In production environments, always activate Django template cache loader. This is available since Django 1.2 and what it does is basically load templates once, then cache the result for every subsequent render. This leads to a significant performance improvement. See how to set it up using fabulous `Django docs page`_.
 
-.. _`Django docs page`: https://docs.djangoproject.com/en/1.5/ref/templates/api/#django.template.loaders.cached.Loader
+.. _`Django docs page`: https://docs.djangoproject.com/en/1.10/ref/templates/api/#django.template.loaders.cached.Loader
 
 Template packs
 ~~~~~~~~~~~~~~
@@ -39,14 +39,17 @@ Since version 1.1.0, django-crispy-forms has built-in support for different CSS 
 
 * ``bootstrap`` `Bootstrap`_ is crispy-forms's default template pack, version 2 of the popular simple and flexible HTML, CSS, and Javascript for user interfaces from Twitter.
 * ``bootstrap3`` Twitter Bootstrap version 3.
+* ``bootstrap4`` support for Twitter Bootstrap version 4.
 * ``uni-form`` `Uni-form`_ is a nice looking, well structured, highly customizable, accessible and usable forms.
-* ``foundation`` `Foundation`_ In creators words "The most advanced responsive front-end framework in the world". This template pack is externally available through `crispy-forms-foundation`_
+* ``foundation`` `Foundation`_ In the creator's words, "The most advanced responsive front-end framework in the world." This template pack is externally available through `crispy-forms-foundation`_
 
 If your form CSS framework is not supported and it's open source, you can create a template pack for it and submit a pull request in Github or create a ``crispy-forms-templatePackName`` project and let me know, so I can link it.
 
-You can set your default template pack for your project using ``CRISPY_TEMPLATE_PACK`` Django settings variable, setting it to one of the previous keywords::
+You can set your default template pack for your project using the ``CRISPY_TEMPLATE_PACK`` Django settings variable::
 
     CRISPY_TEMPLATE_PACK = 'uni_form'
+
+Please check the documentation of your template pack package for the correct value of the ``CRISPY_TEMPLATE_PACK`` setting (there are packages which provide more than one template pack).
 
 .. _`Bootstrap`: http://twitter.github.com/bootstrap/index.html
 .. _`Foundation`: http://foundation.zurb.com/
@@ -55,21 +58,21 @@ You can set your default template pack for your project using ``CRISPY_TEMPLATE_
 Setting media files
 ~~~~~~~~~~~~~~~~~~~
 
-crispy-forms no longer includes static files. You will need to include yourself the proper corresponding media files, depending on what CSS framework (Template pack) you are using. This might involve one or more CSS and JS files. Read CSS framework's docs for help on how to set it up.
+crispy-forms no longer includes static files. You will need to include the proper corresponding media files yourself depending on what CSS framework (Template pack) you are using. This might involve one or more CSS and JS files. Read CSS framework's docs for help on how to set it up.
 
 Moving from django-uni-form to django-crispy-forms
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 django-crispy-forms was started as a friendly fork of django-uni-form. We are aware that a name change implies some hassle updating imports and templates, here is some help mitigating it. This is what you should replace when upgrading:
 
-1. Your ``ÌNSTALLED_APPS`` should point to ``crispy_forms`` instead of ``uni_form``
+1. Your ``INSTALLED_APPS`` should point to ``crispy_forms`` instead of ``uni_form``
 
 2. All imports have to be done from crispy forms::
 
     from uni_form.helper import FormHelper
     from crispy_forms.helper import FormHelper
 
-In Linux You can use `rpl`_ to easily find and update the proper lines. Run in the root of your project the following command. It is strongly recommended that you have your project in a VCS or a backup, so you can rollback if something goes wrong::
+In Linux You can use `rpl`_ to easily find and update the proper lines. In the root of your project run the following command. It is strongly recommended that you have your project in a VCS or a backup, so you can rollback if something goes wrong::
 
     rpl -R uni_form. crispy_forms. .
 
@@ -98,7 +101,7 @@ Using rpl::
     rpl -R "|as_uni_errors" "|as_crispy_errors" .
     rpl -R "|as_uni_field" "|as_crispy_field" .
 
-There is one filter that has been turned into a tag for extra layout power, so former filter name will not work. You will only need to update this if you have custom or overriden templates in your project::
+There is one filter that has been turned into a tag for extra layout power, so the former filter name will not work. You will only need to update this if you have custom or overridden templates in your project::
 
     field|with_class ------> {% crispy_field field %}
 

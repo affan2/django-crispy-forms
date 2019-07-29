@@ -1,4 +1,5 @@
 import sys
+
 try:
     basestring
 except:
@@ -15,11 +16,3 @@ else:
     binary_type = str
     string_types = basestring
     integer_types = (int, long)
-
-try:
-    # avoid RemovedInDjango19Warning by using lru_cache where available
-    from django.utils.lru_cache import lru_cache
-    def memoize(function, *args):
-        return lru_cache()(function)
-except:
-    from django.utils.functional import memoize
