@@ -1,6 +1,6 @@
 import os
 import sys
-from . import crispy_forms
+import crispy_forms
 
 from setuptools import setup, find_packages
 
