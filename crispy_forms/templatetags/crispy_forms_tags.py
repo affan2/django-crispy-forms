@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import template
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.forms.formsets import BaseFormSet
 from django.template.loader import get_template
 from django.utils.lru_cache import lru_cache

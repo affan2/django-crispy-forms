@@ -1,9 +1,8 @@
-
-
 import logging
 import sys
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.forms.utils import flatatt as _flatatt
 from django.template import Context
 from django.template.loader import get_template

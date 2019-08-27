@@ -23,6 +23,7 @@ sys.path.insert(0, os.path.abspath('../crispy_forms/templatetags'))
 sys.path.append(os.path.abspath('_themes'))
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 settings.configure()
 
 

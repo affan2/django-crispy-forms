@@ -1,5 +1,6 @@
 from django import forms, template
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.template import Context, loader
 
 from crispy_forms.utils import TEMPLATE_PACK, get_template_pack
