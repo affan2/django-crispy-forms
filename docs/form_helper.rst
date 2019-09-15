@@ -46,7 +46,7 @@ Helper attributes you can set
 **form_action**
     Applied to the form action attribute. Can be a named url in your URLconf that can be executed via the {% url %} template tag. Example: ‘show_my_profile’. In your URLconf you could have something like::
 
-        url(r'^show/profile/$', 'show_my_profile_view', name='show_my_profile')
+        re_path(r'^show/profile/$', 'show_my_profile_view', name='show_my_profile')
 
     You can also point it to a URL ‘/whatever/blabla/’.
 
